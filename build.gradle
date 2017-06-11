@@ -1,0 +1,70 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// 顶层构建文件，您可以在所有子项目/模块中添加配置选项。
+buildscript {// 中文翻译为: 构建脚本
+    // Android插件从这个仓库中下载
+    repositories { // repositories中文翻译为: 库
+        // 4.从新的中央远程仓库中获取依赖
+        // TODO jcenter()中央远程仓库地址为: https://bintray.com/bintray/jcenter
+        // TODO 大家可以到这里下载, 或者查询你要依赖的库的最新版本
+        jcenter()
+
+        // 1.从指定的远程Maven仓库中获取依赖
+        maven {
+            url "http://maven.helloworld.net/repo"
+        }
+
+        // 2.从指定的本地Maven仓库中获取依赖
+        maven {
+            url "file:///Users/Administrator/mvn"
+        }
+
+        // 3.从中央Maven仓库中获取依赖
+        // mavenCenter()
+        maven {
+            // mavenCenter()仓库的地址, 我不知道为什么我这里直接编译mavenCenter()不成功
+            // 但是可以直接编译它的地址, repo1这里是1, 不是l, 坑
+            url "http://repo1.maven.org/maven2"
+        }
+
+        // 5.从本地仓库中获取依赖
+        mavenLocal()
+
+        // 6.需要认证
+        maven {
+            credentials {
+                username 'user'
+                password 'password'
+            }
+            url "http://repo.helloworld.com/maven2"
+        }
+
+    }
+    dependencies {// 中文翻译为: 依赖
+        // TODO 依赖Android构建(build)工具, 它与gradle的版本没有任何的联系
+        // TODO 就算依赖的gradle存在, 它(com.android.tools.build:gradle)也需要重新下载
+        classpath 'com.android.tools.build:gradle:2.3.2+'
+
+        // NOTE: Do not place your application dependencies here;
+        // NOTE: they(your application dependencies) belong in the individual module build.gradle files
+        // TODO 注意: 不要把你的应用程序依赖在这里. 他们（你的应用程序依赖）属于个人(Module)的build.gradle文件模块
+        // TODO 它们应该在单个module的build.gradle文件中添加
+    }
+}
+
+// TODO 这里配置project中默认的仓库源, 这样每一个module中的依赖包都是从这个仓库中来
+// TODO 这样每一个module就不需要每一次都要自己配置仓库源了
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+// TODO 执行clean任务时, 会执行这里的代码
+task clean(type: Delete) {// TODO 任务类型为Delete
+    // TODO 删除项目根目录下的build目录(build为输出目录)
+    // TODO 这些代码英文意思都很明确的
+    delete rootProject.buildDir
+}
+
+// TODO buildscript中的repositories(库, 仓库)指定Android插件的仓库源
+// TODO allprojects中的repositories(库, 仓库)指定整个Project中默认的仓库源

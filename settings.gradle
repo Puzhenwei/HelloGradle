@@ -1,0 +1,8 @@
+// NOTE: 在该文件中, 需要声明项目(project)包含的各个模块(Module)
+// NOTE: 一般的, 声明格式为: include ':app(first-module-name)', ':second-module-name', ':...', ':last-module-name'
+// NOTE: 特殊的, 声明是个为: include ':app(first-module-name)', ':second-dir-name:second-module-name',
+// ':...:...', ':last-dir-name:last-module-name'
+// NOTE: 混合的, 声明格式为: include ':app(first-module-name)', ':second-module-name'
+// ':first-dir-name:first-module-name', ':...', ':...:...', ':last-dir-name:last-module-name', ':last-module-name'
+// NOTE: 总之, 任何一级的name钱都要有冒号(:)
+include ':app'

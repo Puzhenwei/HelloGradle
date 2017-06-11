@@ -1,0 +1,62 @@
+// 应用插件: 必须声明的
+// NOTE: 这个module是一个Android application, 我们应该使用com.android.application
+// NOTE: 如果应用的是Android的库(lib), 我们应该使用com.android.library
+apply plugin: 'com.android.application'
+
+android {// Android程序构建需要配置的参数
+    // 编译这个module时, 使用的SDK版本
+    compileSdkVersion 23
+    // buildTool的版本
+    buildToolsVersion '25.0.3'
+
+    defaultConfig {// 默认配置
+        // 该module的包名
+        applicationId "com.puzhenwei.administrator.application"
+        // 支持的最小sdk版本
+        minSdkVersion 15
+        // 支持的目标版本
+        targetSdkVersion 23
+        // 版本代码, 或者叫版本号更准确
+        versionCode 1
+        // 该module的版本号
+        versionName "1.0"
+    }
+    buildTypes {// 构建类型, 这里要配置debug和release版本的一些参数, 比如混淆, 签名配置
+        // release版本的配置
+        release {
+            // 是否开启混淆
+            minifyEnabled false
+            // proguard-android.txt在Android SDK的根目录下, 还有其他几个proguard也在
+            // 指定混淆文件和混淆规则配置文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            // NOTE: 无论你的so文件放在module的哪个位置, 都需要在这里正确声明so文件的路径
+            // NOTE: No matter where your so file is placed in module
+            // NOTE: you need to declare the path of the so file correctly here
+            jniLibs.srcDirs = ['src/main/jniLibs']
+            // NOTE: 如果你的so文件在module(比如这里的app根目录下有这些文件: src, libs, build)
+            // NOTE: 只需要之间声明文件夹名字, 其实也还是路径
+            // NOTE: 路径格式为: mudule根目录的文件夹/jniLibs(习惯这样定义)
+        }
+    }
+}
+
+dependencies {
+    // 编译文件树, 也就是libs目录下的所有jar包
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // 单元测试时需要的依赖库
+    testCompile 'junit:junit:4.12'
+    // 该module中编程所需的依赖库, 版本号一定要可以查询到, 否则编译不通过
+    compile 'com.android.support:appcompat-v7:23.2.1'
+
+    // TODO NOTE: 一般来说，我们需要知道library的字符串形式，包含3部分, 以冒号连接
+    // TODO GROUP_ID:ARTIFACT_ID:VERSION
+    // TODO GROUP_ID定义了library的group。有可能在同样的上下文中存在多个不同功能的library。
+    // TODO 如果library具有相同的group，那么它们将共享一个GROUP_ID。
+    // TODO 通常我们以开发者包名紧跟着library的group名称来命名，比如com.squareup.picasso。
+    // TODO 然后ARTIFACT_ID中是library的真实名称。至于VERSION，就是版本号而已
+}
